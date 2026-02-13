@@ -1,0 +1,198 @@
+Game step:      [10000it                    816.3it/s   ]
+Max score:      [1.8it                      6.7s/it     ]
+Done score:     [-infit                                 ]
+Compute steps:  [10000it                    816.3it/s   ]
+Iterations:     [ 0%   1it/200              12.3s/it    ]
+Cells:          [7it                        1.8s/it     ]
+Time (seconds): [ 0%    12it/43200          1.0s/it     ]
+Cells at score: {1: 1, 10: 1, 100: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1, 17: 1, 18: 1, 19: 1, 2: 1, 20: 1, 21: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 3: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1, 37: 1, 38: 1, 39: 1, 4: 1, 40: 1, 41: 1, 42: 1, 43: 1, 44: 1, 45: 1, 46: 1, 47: 1, 48: 1, 49: 1, 5: 1, 50: 1, 51: 1, 52: 1, 53: 1, 54: 1, 55: 1, 56: 1, 57: 1, 58: 1, 59: 1, 6: 1, 60: 1, 61: 1, 62: 1, 63: 1, 64: 1, 65: 1, 66: 1, 67: 1, 68: 1, 69: 1, 7: 1, 70: 1, 71: 1, 72: 1, 73: 1, 74: 1, 75: 1, 76: 1, 77: 1, 78: 1, 79: 1, 8: 1, 80: 1, 81: 1, 82: 1, 83: 1, 84: 1, 85: 1, 86: 1, 87: 1, 88: 1, 89: 1, 9: 1, 90: 1, 91: 1, 92: 1, 93: 1, 94: 1, 95: 1, 96: 1, 97: 1, 98: 1, 99: 1}
+Max score: 1.8239864567374928
+Compute cells: 7
+Process Process-1:
+Cells:          [31it                       1.9it/s     ] DONE
+Done score:     [-infit                                 ] DONE
+Max score:      [18.5it                     1.2it/s     ] DONE
+Game step:      [56671it                    3553.6it/s  ] DONE
+Compute steps:  [30000it                    1881.2it/s  ] DONE
+Iterations:     [ 2%   3it/200              5.3s/it     ] DONE
+Time (seconds): [ 0%    15it/43200          1.1s/it     ] DONE
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 357, in _run
+    expl.run_cycle()
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/goexplore.py", line 895, in run_cycle
+    trajectories = [e.data for e in POOL.map(self.process_cell, chosen_cells)]
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/goexplore.py", line 895, in <listcomp>
+    trajectories = [e.data for e in POOL.map(self.process_cell, chosen_cells)]
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/site-packages/loky/process_executor.py", line 997, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/concurrent/futures/_base.py", line 621, in result_iterator
+    yield _result_or_cancel(fs.pop())
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/concurrent/futures/_base.py", line 319, in _result_or_cancel
+    return fut.result(timeout)
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 320, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 320, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 320, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 320, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 320, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 320, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 501, in run
+    _run(base_path, args)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 320, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 724, in <module>
+    run(args.base_path, args)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 505, in run
+    traceback.print_exc()
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/traceback.py", line 179, in print_exc
+    print_exception(*sys.exc_info(), limit=limit, file=file, chain=chain)
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/traceback.py", line 121, in print_exception
+    print(line, file=file, end="")
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 434, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+Error in sys.excepthook:
+Traceback (most recent call last):
+
+
+Original exception was:
+Traceback (most recent call last):
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+

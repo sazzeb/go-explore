@@ -11,7 +11,7 @@ import gym
 import argparse
 import cv2
 import gzip
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import horovod.tensorflow as hvd
 from sys import platform
 from typing import Any
@@ -148,7 +148,11 @@ def get_frame_wrapper(frame_resize):
 def set_global_seeds(i):
     try:
         import tensorflow as local_tf
-        local_tf.set_random_seed(i)
+        # TF1 used set_random_seed; TF2 uses tf.random.set_seed.
+        if hasattr(local_tf, 'random') and hasattr(local_tf.random, 'set_seed'):
+            local_tf.random.set_seed(i)
+        else:
+            local_tf.compat.v1.set_random_seed(i)
     except ImportError:
         # noinspection PyUnusedLocal
         local_tf = None
@@ -165,7 +169,18 @@ def hrv_and_tf_init(nb_cpu, nb_envs, seed_offset):
                             intra_op_parallelism_threads=nb_cpu,
                             inter_op_parallelism_threads=nb_cpu)
     config.gpu_options.allow_growth = True
-    config.gpu_options.visible_device_list = str(hvd.local_rank())
+    # Only pin GPUs when the local rank maps to an actual GPU.
+    # On macOS (tensorflow-macos), there is typically at most one GPU device; pinning rank 1+ would crash.
+    try:
+        import tensorflow as tf2
+        gpu_count = len(tf2.config.list_physical_devices('GPU'))
+    except Exception:
+        gpu_count = 0
+
+    if gpu_count > 0 and hvd.local_rank() < gpu_count:
+        config.gpu_options.visible_device_list = str(hvd.local_rank())
+    else:
+        config.gpu_options.visible_device_list = ''
     session = tf.Session(config=config)
     return session, master_seed
 
@@ -366,6 +381,28 @@ def get_env(game_name,
     temp_env = gym.make(game_name + 'NoFrameskip-v4')
     set_action_meanings(temp_env.unwrapped.get_action_meanings())
 
+    class _GymApiCompat:
+        def __init__(self, env):
+            self.env = env
+
+        def reset(self, *args, **kwargs):
+            result = self.env.reset(*args, **kwargs)
+            if isinstance(result, tuple) and len(result) == 2:
+                obs, _info = result
+                return obs
+            return result
+
+        def step(self, action):
+            result = self.env.step(action)
+            if isinstance(result, tuple) and len(result) == 5:
+                obs, reward, terminated, truncated, info = result
+                done = bool(terminated) or bool(truncated)
+                return obs, reward, done, info
+            return result
+
+        def __getattr__(self, item):
+            return getattr(self.env, item)
+
     def make_env(rank):
         def env_fn():
             logger.debug(f'Process seed set to: {rank} seed: {seed + rank}')
@@ -374,6 +411,7 @@ def get_env(game_name,
             if max_episode_steps is not None:
                 gym.spec(env_id).max_episode_steps = max_episode_steps
             local_env = gym.make(env_id)
+            local_env = _GymApiCompat(local_env)
             set_action_meanings(local_env.unwrapped.get_action_meanings())
             local_env = game_class(local_env, **game_args)
             # Even if make video is true, only define it for one of our environments

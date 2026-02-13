@@ -1,0 +1,21 @@
+/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/site-packages/gym/core.py:317: DeprecationWarning: [33mWARN: Initializing wrapper in old step API which returns one bool instead of two. It is recommended to set `new_step_api=True` to use new step API. This will be the default behaviour in future.[0m
+  deprecation(
+/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/site-packages/gym/wrappers/step_api_compatibility.py:39: DeprecationWarning: [33mWARN: Initializing environment in old step API which returns one bool instead of two. It is recommended to set `new_step_api=True` to use new step API. This will be the default behaviour in future.[0m
+  deprecation(
+Game step:      [3637it                     1605.3it/s  ]
+Done score:     [0.0it                                  ]
+Compute steps:  [364% 3637it/1000           1605.2it/s  ]
+Iterations:     [1it                        2.3s/it     ]
+Cells:          [59it                       26.0it/s    ]
+Time (seconds): [ 0%      2it/921600        1.1s/it     ]
+Cells at level: {0: 57}
+Cells at score: {(): 57}
+Max score: 0
+Compute cells: 59
+Cells:          [59it                       25.9it/s    ] DONE
+Done score:     [0.0it                                  ] DONE
+Max score:      [0it                                    ] DONE
+Game step:      [3637it                     1597.1it/s  ] DONE
+Compute steps:  [364% 3637it/1000           1597.1it/s  ] DONE
+Iterations:     [1it                        2.3s/it     ] DONE
+Time (seconds): [ 0%      2it/921600        1.1s/it     ] DONE

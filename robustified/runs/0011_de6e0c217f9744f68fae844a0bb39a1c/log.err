@@ -1,0 +1,186 @@
+/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/site-packages/gym/core.py:317: DeprecationWarning: [33mWARN: Initializing wrapper in old step API which returns one bool instead of two. It is recommended to set `new_step_api=True` to use new step API. This will be the default behaviour in future.[0m
+  deprecation(
+/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/site-packages/gym/wrappers/step_api_compatibility.py:39: DeprecationWarning: [33mWARN: Initializing environment in old step API which returns one bool instead of two. It is recommended to set `new_step_api=True` to use new step API. This will be the default behaviour in future.[0m
+  deprecation(
+Game step:      [10000it                    2581.9it/s  ]
+Cells:          [0it                                    ] DONE
+Done score:     [0it                                    ] DONE
+Max score:      [0it                                    ] DONE
+Game step:      [10000it                    2581.9it/s  ] DONE
+Compute steps:  [ 0%    0it/1000                        ] DONE
+Iterations:     [0it                                    ] DONE
+Time (seconds): [ 0%      0it/921600                    ] DONE
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 347, in _run
+    t.update(expl.frames_true - old)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 82, in update
+    self.refresh()
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 308, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 308, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 308, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 308, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 308, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 308, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 489, in run
+    _run(base_path, args)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 308, in _run
+    with tqdm(desc='Time (seconds)', smoothing=0, total=MAX_TIME) as t_time, \
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 71, in __exit__
+    self.refresh(force_print=True, done=True)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 89, in refresh
+    self.write(f'{self.get_desc_str():16}[{self.get_prog_str():26}{self.get_speed_str(cur_time):13}]' + (' DONE' if done else ''))
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/import_ai.py", line 124, in write
+    print(str, file=sys.stderr)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 712, in <module>
+    run(args.base_path, args)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 493, in run
+    traceback.print_exc()
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/traceback.py", line 179, in print_exc
+    print_exception(*sys.exc_info(), limit=limit, file=file, chain=chain)
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/traceback.py", line 121, in print_exception
+    print(line, file=file, end="")
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 422, in write
+    self.stdout.write(data)
+BrokenPipeError: [Errno 32] Broken pipe
+Error in sys.excepthook:
+Traceback (most recent call last):
+
+
+Original exception was:
+Traceback (most recent call last):
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+During handling of the above exception, another exception occurred:
+
+

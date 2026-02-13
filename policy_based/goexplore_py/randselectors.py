@@ -24,6 +24,11 @@ def number_of_set_bits(i):
 
 
 class Selector(object):
+    # Some code paths (e.g., logging in goexplore_start.py) expect selectors to
+    # expose a selector_weights attribute. WeightedSelector overrides this with
+    # real weights.
+    selector_weights = ()
+
     def cell_update(self, cell_key):
         pass
 
@@ -33,6 +38,26 @@ class Selector(object):
     def choose_cell(self, archive: Dict[Any, CellInfoStochastic], size=1):
         chosen_keys = self.choose_cell_key(archive, size)
         return [archive[key] for key in chosen_keys]
+
+    def get_traj_probabilities_dict(self, archive: Dict[Any, CellInfoStochastic]):
+        """Return a trajectory-id -> probability dict for the current selector.
+
+        Some parts of the Go-Explore pipeline (trajectory manager) expect selectors
+        to provide trajectory probabilities. For simple selectors that don't have
+        explicit weights (e.g., Random/Iterative), we default to a uniform
+        distribution over cells, aggregated by the cell's trajectory id.
+        """
+        if not archive:
+            return {}
+
+        p_cell = 1.0 / float(len(archive))
+        traj_probabilities_dict: Dict[Any, float] = {}
+        for _cell_key, cell_info in archive.items():
+            traj_id = getattr(cell_info, 'cell_traj_id', None)
+            if traj_id is None:
+                continue
+            traj_probabilities_dict[traj_id] = traj_probabilities_dict.get(traj_id, 0.0) + p_cell
+        return traj_probabilities_dict
 
 
 class RandomSelector(Selector):

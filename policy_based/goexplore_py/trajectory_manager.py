@@ -11,7 +11,7 @@ from .data_classes import dataclass, copyfield
 import sys
 import random
 import copy
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import goexplore_py.globals as global_const
 import pickle
@@ -155,6 +155,10 @@ class CellTrajectoryManager:
     def dump(self, filename):
         writer = tf.python_io.TFRecordWriter(filename)
         for key in self.cell_trajectories:
+            # If we're not recording full trajectories (e.g., SIL disabled),
+            # there may be no full trajectory data to dump.
+            if key not in self.full_trajectory_info:
+                continue
             full_trajectory = self.get_full_trajectory(key)
             trajectory_id = tf.train.Feature(int64_list=tf.train.Int64List(value=[key]))
             trajectory_length = tf.train.Feature(int64_list=tf.train.Int64List(value=[len(full_trajectory)]))

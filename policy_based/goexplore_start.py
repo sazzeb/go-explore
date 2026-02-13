@@ -23,6 +23,9 @@ from typing import Optional, Any
 import goexplore_py.globals as global_const
 import tensorflow as tf
 
+# This codebase was written for TF1.x; enable TF1 compatibility when running on TF2.x.
+tf.compat.v1.disable_v2_behavior()
+
 try:
     tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 except AttributeError:

@@ -1,0 +1,38 @@
+Cells:          [0it                                    ] DONE
+Done score:     [0it                                    ] DONE
+Max score:      [0it                                    ] DONE
+Game step:      [0it                                    ] DONE
+Compute steps:  [0it                                    ] DONE
+Iterations:     [ 0%   0it/200                          ] DONE
+Time (seconds): [ 0%     0it/43200                      ] DONE
+Process Process-1:
+Traceback (most recent call last):
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 63, in track_performance
+    time.sleep(sleep_time)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 724, in <module>
+    run(args.base_path, args)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 501, in run
+    _run(base_path, args)
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/main.py", line 357, in _run
+    expl.run_cycle()
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/goexplore.py", line 895, in run_cycle
+    trajectories = [e.data for e in POOL.map(self.process_cell, chosen_cells)]
+  File "/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/goexplore.py", line 895, in <listcomp>
+    trajectories = [e.data for e in POOL.map(self.process_cell, chosen_cells)]
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/site-packages/loky/process_executor.py", line 997, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/concurrent/futures/_base.py", line 621, in result_iterator
+    yield _result_or_cancel(fs.pop())
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/concurrent/futures/_base.py", line 319, in _result_or_cancel
+    return fut.result(timeout)
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/opt/homebrew/anaconda3/envs/goexplore/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+KeyboardInterrupt

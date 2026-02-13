@@ -1,0 +1,4 @@
+log_file,experiment_dir,max_score,compute_cells,game_steps,compute_steps,iterations
+logs/finrl_r1_200.log,runs_finrl_r1/0001_f10403bee8cb493c84b7c70a6118a58e/,155.9055780121955,5545,15518014,1887256,200
+logs/finrl_r2_200.log,runs_finrl_r2/0000_afde52115d7549e8bfaa620a1755916b/,156.65684852535423,5386,15819334,1888550,200
+logs/finrl_r3_200.log,runs_finrl_r3/0000_33bbdc5fef004d1fb8ed946a0b89dbd7/,153.37419583652147,5046,16021171,1865860,200

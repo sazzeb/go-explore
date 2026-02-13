@@ -1,0 +1,2 @@
+Experiment running in runs_finrl/0018_0c1522fb202b46f3bb0aa40c0959d855/
+WARN: missing tickers in dataset (will ignore): ['DOW', 'WBA']

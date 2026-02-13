@@ -371,8 +371,8 @@ class ReplayResetEnv(MyWrapper):
         if not avg_frames_window_size > 0:
             self.avg_frames_window_size = 1
             self.infinite_window_size = True
-        self.times_demos_chosen = np.zeros(len(self.demo_replay_info), dtype=np.int)
-        self.steps_taken_per_demo = np.zeros((len(self.demo_replay_info), self.avg_frames_window_size), dtype=np.int)
+        self.times_demos_chosen = np.zeros(len(self.demo_replay_info), dtype=int)
+        self.steps_taken_per_demo = np.zeros((len(self.demo_replay_info), self.avg_frames_window_size), dtype=int)
         for i in range(len(self.demo_replay_info)):
             if from_start_prior > 0 and test_from_start and i == 0:
                 self.steps_taken_per_demo[i, :] = from_start_prior
@@ -1033,7 +1033,11 @@ def worker(remote, env_fn_wrapper):
     env = env_fn_wrapper.x()
     try:
         while True:
-            cmd, data = remote.recv()
+            try:
+                cmd, data = remote.recv()
+            except EOFError:
+                # Parent process exited / closed pipe.
+                break
             logger.debug(f'[{os.getpid()}] received command: {cmd}')
             if cmd == 'step':
                 ob, reward, done, info = env.step(data)
@@ -1084,9 +1088,22 @@ def worker(remote, env_fn_wrapper):
             else:
                 raise NotImplementedError
     except Exception as e:
-        remote.send(e)
+        try:
+            remote.send(e)
+        except (BrokenPipeError, EOFError, OSError):
+            pass
         remote.close()
         raise
+
+    # Clean shutdown path (e.g., EOFError on recv)
+    try:
+        env.close()
+    except Exception:
+        pass
+    try:
+        remote.close()
+    except Exception:
+        pass
 
 
 class CloudpickleWrapper(object):

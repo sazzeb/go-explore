@@ -3,11 +3,49 @@
 """
 
 import numpy as np
-import tensorflow as tf
-from tensorflow.nn import rnn_cell
-from baselines.common.distributions import make_pdtype
+import tensorflow.compat.v1 as tf
+from tensorflow.compat.v1.nn import rnn_cell
 import logging
 logger = logging.getLogger(__name__)
+
+
+class CategoricalPd:
+    def __init__(self, logits):
+        self.logits = logits
+
+    def sample(self):
+        # tf.random.categorical returns shape [batch, 1]
+        return tf.squeeze(tf.random.categorical(self.logits, 1), axis=1)
+
+    def neglogp(self, x):
+        x = tf.cast(x, tf.int32)
+        return tf.nn.sparse_softmax_cross_entropy_with_logits(logits=self.logits, labels=x)
+
+    def entropy(self):
+        a0 = self.logits - tf.reduce_max(self.logits, axis=1, keepdims=True)
+        ea0 = tf.exp(a0)
+        z0 = tf.reduce_sum(ea0, axis=1, keepdims=True)
+        p0 = ea0 / z0
+        return tf.reduce_sum(p0 * (tf.math.log(z0) - a0), axis=1)
+
+
+class CategoricalPdType:
+    def __init__(self, ncat):
+        self.ncat = ncat
+
+    def pdfromflat(self, flat):
+        return CategoricalPd(flat)
+
+    def sample_placeholder(self, shape, name=None):
+        return tf.placeholder(dtype=tf.int64, shape=shape, name=name)
+
+
+def make_pdtype(ac_space):
+    # Only discrete action spaces are expected/used for Atari.
+    ncat = getattr(ac_space, 'n', None)
+    if ncat is None:
+        raise NotImplementedError('Only discrete action spaces are supported')
+    return CategoricalPdType(ncat)
 
 
 def to2d(x):
@@ -156,8 +194,8 @@ class GRUPolicy(object):
             h2 = tf.nn.relu(conv(h, 'c2', noutchannels=128, filtsize=4, stride=2))
             h3 = tf.nn.relu(conv(h2, 'c3', noutchannels=128, filtsize=3, stride=1))
             h3 = to2d(h3)
-            h4 = tf.contrib.layers.layer_norm(fc(h3, 'fc1', nout=memsize), center=False, scale=False,
-                                              activation_fn=tf.nn.relu)
+            ln = tf.keras.layers.LayerNormalization(axis=-1, center=False, scale=False)
+            h4 = tf.nn.relu(ln(fc(h3, 'fc1', nout=memsize)))
             h5 = tf.reshape(h4, [nenv, nsteps, memsize])
 
             m = tf.reshape(mask, [nenv, nsteps, 1])

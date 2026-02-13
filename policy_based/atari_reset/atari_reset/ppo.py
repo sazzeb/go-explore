@@ -5,7 +5,7 @@ Proximal policy optimization with a few tricks. Adapted from the implementation 
 """
 import joblib
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import horovod.tensorflow as hvd
 import sys
 import copy
@@ -416,13 +416,29 @@ class Runner(object):
                 self.epinfos.append(maybeepinfo)
 
     def gather_return_info(self, end):
-        from baselines.common.mpi_moments import mpi_moments
+        def mpi_moments(x):
+            x = np.asarray(x, dtype=np.float64)
+            try:
+                from mpi4py import MPI
+                comm = MPI.COMM_WORLD
+                sum_x = comm.allreduce(np.sum(x), op=MPI.SUM)
+                sum_x2 = comm.allreduce(np.sum(x * x), op=MPI.SUM)
+                count = comm.allreduce(x.size, op=MPI.SUM)
+            except Exception:
+                sum_x = float(np.sum(x))
+                sum_x2 = float(np.sum(x * x))
+                count = int(x.size)
+
+            mean = sum_x / max(count, 1)
+            var = sum_x2 / max(count, 1) - mean * mean
+            std = float(np.sqrt(max(var, 0.0)))
+            return mean, std, count
         self.ar_mb_goals = sf01(np.asarray(self.mb_goals[:end], dtype=self.model.train_model.goal.dtype.name), 'goals')
         self.ar_mb_ent = sf01(np.stack(self.mb_increase_ent[:end], axis=0), 'ents')
         self.ar_mb_valids = sf01(np.asarray(self.mb_valids[:end], dtype=np.float32), 'valids')
         self.ar_mb_actions = sf01(np.asarray(self.mb_actions[:end]), 'actions')
         self.ar_mb_neglogpacs = sf01(np.asarray(self.mb_neglogpacs[:end], dtype=np.float32), 'neg_log_prob')
-        self.ar_mb_dones = sf01(np.asarray(self.mb_dones[:end], dtype=np.bool), 'dones')
+        self.ar_mb_dones = sf01(np.asarray(self.mb_dones[:end], dtype=bool), 'dones')
         self.ar_mb_advs = np.asarray(self.mb_advs[:end], dtype=np.float32)
         self.ar_mb_values = np.asarray(self.mb_values[:end], dtype=np.float32)
         self.ar_mb_rets = sf01(self.ar_mb_values + self.ar_mb_advs, 'rets')
@@ -432,15 +448,15 @@ class Runner(object):
             self.ar_mb_advs = (self.ar_mb_advs - adv_mean) / (adv_std + 1e-7)
         self.ar_mb_advs = sf01(self.ar_mb_advs, 'advs')
 
-        self.ar_mb_cells = sf01(np.asarray(self.mb_cells, dtype=np.object), 'cells')
+        self.ar_mb_cells = sf01(np.asarray(self.mb_cells, dtype=object), 'cells')
         self.ar_mb_ret_strat = sf01(np.asarray(self.mb_exp_strat, dtype=np.int32), 'ret_strats')
 
         self.ar_mb_game_reward = sf01(np.asarray(self.mb_game_reward, dtype=np.float32), 'game_rew')
 
         trunc_trajectory_ids = self.mb_trajectory_ids[-len(self.mb_cells) - 1:len(self.mb_trajectory_ids) - 1]
-        self.trunc_lst_mb_trajectory_ids = sf01(np.asarray(trunc_trajectory_ids, dtype=np.int), 'traj_ids')
+        self.trunc_lst_mb_trajectory_ids = sf01(np.asarray(trunc_trajectory_ids, dtype=int), 'traj_ids')
         trunc_dones = self.mb_dones[-len(self.mb_cells):len(self.mb_dones)]
-        self.trunc_lst_mb_dones = sf01(np.asarray(trunc_dones, dtype=np.bool), 'trunc_dones')
+        self.trunc_lst_mb_dones = sf01(np.asarray(trunc_dones, dtype=bool), 'trunc_dones')
         trunc_rewards = self.mb_rewards[-len(self.mb_cells):len(self.mb_rewards)]
         self.trunc_lst_mb_rewards = sf01(np.asarray(trunc_rewards, dtype=np.float32), 'trunc_rews')
 
@@ -461,9 +477,9 @@ class Runner(object):
         self.trunc_mb_goals = sf01(np.asarray(self.mb_goals[end-len(self.mb_cells):end],
                                               dtype=self.model.train_model.goal.dtype.name), 'trunc_goals')
         self.trunc_mb_actions = sf01(np.asarray(self.mb_actions[end-len(self.mb_cells):end],
-                                                dtype=np.int), 'trunc_acts')
+                                                dtype=int), 'trunc_acts')
         self.trunc_mb_valids = sf01(np.asarray(self.mb_valids[end-len(self.mb_cells):end],
-                                               dtype=np.int), 'trunc_valids')
+                                               dtype=int), 'trunc_valids')
 
         self.ar_mb_traj_index = sf01(np.asarray(self.mb_traj_index, dtype=np.int32), 'ar_mb_traj_index')
         self.ar_mb_traj_len = sf01(np.asarray(self.mb_traj_len, dtype=np.int32), 'ar_mb_traj_len')

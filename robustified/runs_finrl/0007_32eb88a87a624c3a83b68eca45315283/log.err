@@ -1,0 +1,9 @@
+/Users/samul/Desktop/thesis/go-explore/robustified/goexplore_py/randselectors.py:359: RuntimeWarning: invalid value encountered in divide
+  p=weights / total
+Cells:          [0it                                    ] DONE
+Done score:     [0it                                    ] DONE
+Max score:      [0it                                    ] DONE
+Game step:      [0it                                    ] DONE
+Compute steps:  [0it                                    ] DONE
+Iterations:     [ 0% 0it/5                              ] DONE
+Time (seconds): [ 0%     0it/43200                      ] DONE

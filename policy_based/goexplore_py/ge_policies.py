@@ -8,7 +8,7 @@
 # limitations under the License.
 import logging
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import atari_reset.atari_reset.policies as po
 logger = logging.getLogger(__name__)
 
@@ -48,8 +48,8 @@ class GRUPolicyGoalConSimpleFlexEnt(object):
             logger.info(f'g1.shape: {g1.shape}')
             h3 = tf.concat([h3, g1], axis=1)
             logger.info(f'h3.shape: {h3.shape}')
-            h4 = tf.contrib.layers.layer_norm(po.fc(h3, 'fc1', nout=memsize), center=False, scale=False,
-                                              activation_fn=tf.nn.relu)
+            ln = tf.keras.layers.LayerNormalization(axis=-1, center=False, scale=False)
+            h4 = tf.nn.relu(ln(po.fc(h3, 'fc1', nout=memsize)))
             logger.info(f'h4.shape: {h4.shape}')
             h5 = tf.reshape(h4, [nenv, nsteps, memsize])
 

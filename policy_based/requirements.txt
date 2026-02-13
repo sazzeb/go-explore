@@ -1,13 +1,26 @@
-tensorflow==1.15.2
-mpi4py
-gym[Atari]
-horovod
-baselines@git+https://github.com/openai/baselines@ea25b9e8b234e6ee1bca43083f8f3cf974143998
+numpy<2.0
+cloudpickle
 Pillow
 imageio
+imageio-ffmpeg
 matplotlib
-loky
-joblib
-dataclasses
 opencv-python
-cloudpickle
+joblib
+loky
+tqdm
+psutil
+requests
+PyYAML
+
+# RL envs
+gym[atari,accept-rom-license]==0.26.2
+ale-py>=0.8.1
+
+# TensorFlow (Python 3.10)
+tensorflow-macos==2.15.0; platform_system=="Darwin" and platform_machine=="arm64"
+tensorflow-metal==1.1.0; platform_system=="Darwin" and platform_machine=="arm64"
+tensorflow==2.15.0; platform_system!="Darwin" or platform_machine!="arm64"
+
+# Parallel/distributed (optional)
+mpi4py>=3.1.5
+horovod; platform_system!="Darwin"
